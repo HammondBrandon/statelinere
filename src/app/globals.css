@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+/*
+ * Stateline Realty Co. — brand tokens (from the official branding sheet)
+ *   Sun Yellow  #FEC52B
+ *   Stateline Teal #0097B2
+ *   "Light yellow and blue — 25% transparency" tints are the -soft tokens.
+ *
+ * Fonts: the brand fonts are Canter (Bold) and Handelson Three. Neither is on
+ * Google Fonts, so Antonio and Yellowtail stand in until the licensed files
+ * are added to src/fonts/ (see README). --font-display / --font-script are
+ * the only places that need to change.
+ */
+
+@theme {
+  --color-sun: #fec52b;
+  --color-sun-deep: #e5a800;
+  --color-sun-soft: #fff1ca; /* #FEC52B @ 25% on white */
+  --color-teal: #0097b2;
+  --color-teal-deep: #00768b; /* AA-safe for small text on white */
+  --color-teal-ink: #0b4450;
+  --color-teal-soft: #bfe5ec; /* #0097B2 @ 25% on white */
+  --color-teal-mist: #eef8fa;
+
+  /* Warm neutrals to carry the Ambience-style photography */
+  --color-cream: #fbf8f3;
+  --color-sand: #f3ece1;
+  --color-stone: #d9cfc1;
+  --color-ink: #1d2a2f;
+  --color-ink-soft: #46555b;
+  --color-ink-muted: #6f7c81;
+  --color-line: #e7e0d5;
+
+  --font-display: "Canter", var(--font-antonio), "Arial Narrow", sans-serif;
+  --font-script: "Handelson Three", var(--font-yellowtail), cursive;
+  --font-sans: var(--font-montserrat), system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(29 42 47 / 0.04), 0 8px 24px -12px rgb(29 42 47 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(29 42 47 / 0.05), 0 24px 48px -20px rgb(29 42 47 / 0.28);
+
+  --animate-fade-up: fade-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: none; }
+  }
+}
+
+/*
+ * Brand fonts: once the licensed files are in public/fonts/, uncomment these.
+ * "Canter" and "Handelson Three" are already first in the font stacks above.
+ *
+ * @font-face { font-family: "Canter"; src: url("/fonts/Canter-Bold.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+ * @font-face { font-family: "Handelson Three"; src: url("/fonts/HandelsonThree.woff2") format("woff2"); font-display: swap; }
+ */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink-soft);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--color-ink);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+  }
+}
+
+@layer components {
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+  }
+  .container-x {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 80rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x { padding-inline: 2rem; }
+  }
+  .field {
+    width: 100%;
+    border: 1px solid var(--color-line);
+    background: #fff;
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+    color: var(--color-ink);
+    border-radius: 0.75rem;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .field:focus {
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 3px var(--color-teal-soft);
+  }
+  .field-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-ink-muted);
+  }
+}
+
+/* Scroll-reveal (see components/ui/Reveal.tsx) */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.9s cubic-bezier(0.2,0.7,0.2,1), transform 0.9s cubic-bezier(0.2,0.7,0.2,1); }
+.reveal.is-visible { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--color-sun-soft);
+  color: var(--color-ink);
+}
