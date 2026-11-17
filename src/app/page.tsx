@@ -96,7 +96,7 @@ export default async function HomePage() {
           </div>
         </div>
         <a
-          href="#help"
+          href="#listings"
           className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white/80 hover:text-white"
           aria-label="Scroll to content"
         >
@@ -104,7 +104,27 @@ export default async function HomePage() {
         </a>
       </section>
 
-      <div id="help" />
+      {/* ── Featured listings ────────────────────────────────────────── */}
+      <section id="listings" className="scroll-mt-20 bg-cream py-24 sm:py-28">
+        <div className="container-x">
+          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
+            <Reveal>
+              <SectionHeading align="left" eyebrow="Latest listings" title="Discover Your" script="next place to land" />
+            </Reveal>
+            <ButtonLink href="/properties" variant="outline">
+              View All Properties <ArrowRight className="h-4 w-4" aria-hidden />
+            </ButtonLink>
+          </div>
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            {featured.map((l, i) => (
+              <Reveal key={l.id} delay={(i % 3) * 100}>
+                <ListingCard listing={l} />
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <PhotoTiles />
 
       {/* ── How it works ─────────────────────────────────────────────── */}
@@ -132,27 +152,6 @@ export default async function HomePage() {
               </Reveal>
             ))}
           </ol>
-        </div>
-      </section>
-
-      {/* ── Featured listings ────────────────────────────────────────── */}
-      <section className="bg-white py-24 sm:py-28">
-        <div className="container-x">
-          <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
-            <Reveal>
-              <SectionHeading align="left" eyebrow="Latest listings" title="Discover Your" script="next place to land" />
-            </Reveal>
-            <ButtonLink href="/properties" variant="outline">
-              View All Properties <ArrowRight className="h-4 w-4" aria-hidden />
-            </ButtonLink>
-          </div>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {featured.map((l, i) => (
-              <Reveal key={l.id} delay={(i % 3) * 100}>
-                <ListingCard listing={l} />
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
